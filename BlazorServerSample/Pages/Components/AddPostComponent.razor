@@ -1,0 +1,47 @@
+﻿@page "/AddPost"
+
+@using BlazorServerSample.Data;
+@using BlazorServerSample.Services.Interfaces
+
+@inject NavigationManager navigationManager;
+@inject IPostService postService;
+
+<h3>Add Post</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Author" class="control-label">Author</label>
+                <input form="Author" class="form-control" @bind="@post.Author" />
+            </div>
+            <div class="form-group">
+                <label for="Body" class="control-label">Body</label>
+                <textarea form="Body" class="form-control" @bind="@post.Body" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreatePost" value="Save" />
+                <input type="button" class="btn btn-primary" @onclick="@CancelPost" value="Cancel" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+    Post post = new Post();
+
+    protected async void CreatePost()
+    {
+        await postService.InsertPostAsync(post);
+        navigationManager.NavigateTo("Posts");
+    }
+
+    void CancelPost()
+    {
+        navigationManager.NavigateTo("Posts");
+    }
+}

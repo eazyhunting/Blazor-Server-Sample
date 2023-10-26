@@ -1,0 +1,62 @@
+﻿@page "/AddComment"
+
+@using BlazorServerSample.Data;
+@using BlazorServerSample.Services.Interfaces;
+
+@inject ICommentService commentService;
+
+<h3>Add Comment</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="Author" class="control-label">Author</label>
+                <input form="Author" class="form-control" @bind="@comment.Author" />
+            </div>
+            <div class="form-group">
+                <label for="Message" class="control-label">Message</label>
+                <textarea form="Message" class="form-control" @bind="@comment.Message" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@CreateComment" value="Comment" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@code {
+
+    [Parameter]
+    public Post ParentPost { get; set; }
+
+    [Parameter]
+    public EventCallback OnSubmitted { get; set; }
+
+    Comment comment = new Comment();
+
+    protected async void CreateComment()
+    {
+        comment.Post = ParentPost;
+        await commentService.InsertCommentAsync(comment);
+
+        ResetForm();
+        
+        await OnSubmitted.InvokeAsync(this);
+    }
+
+    private void ResetForm()
+    {
+        comment = new Comment()
+            {
+                Post = ParentPost
+            };
+
+        StateHasChanged();
+
+    }
+}

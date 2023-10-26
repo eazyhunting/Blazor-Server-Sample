@@ -1,0 +1,62 @@
+﻿@page "/Posts"
+
+@using BlazorServerSample.Data;
+@using BlazorServerSample.Services.Interfaces
+
+@inject IPostService postService;
+
+<NavLink class="nav-link" href="AddPost">
+    <span class="oi oi-plus" aria-hidden="true">Add New</span>
+</NavLink>
+
+<h3>Posts</h3>
+
+@if (PostCollection is null)
+{
+    <p><em>Loading.... !</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Post Id</th>
+                <th>User</th>
+                <th>Summary</th>
+                <th>Create Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var post in PostCollection)
+            {
+                <tr>
+                    <td>@post.Id</td>
+                    <td>@post.Author</td>
+                    <td>
+                        @if (post.Body.Length > 20) {
+                            var summary = $"{@post.Body.Substring(0, 20)}...";
+                            @summary
+                        } else
+                        {
+                            @post.Body
+                        }
+                    </td>
+                    <td>@post.CreateDate</td>
+                    <td>
+                        <a href="ViewPost/@post.Id">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public List<Post> PostCollection = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        PostCollection = await postService.GetPostsAsync();
+    }
+}

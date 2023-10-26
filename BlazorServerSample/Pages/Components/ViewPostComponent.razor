@@ -1,0 +1,69 @@
+﻿@page "/ViewPost/{id}"
+
+@using BlazorServerSample.Data;
+@using BlazorServerSample.Services.Interfaces;
+
+@inject IPostService postService;
+@inject ICommentService commentService;
+@inject INotifierService notifierService;
+
+@inject NavigationManager navigationManager;
+
+<h3>Post View</h3>
+
+@if (post is null)
+{
+    <p><em>Loading ....  !</em></p>
+} else {
+<div class="row">
+    <div class="col-md-4">
+        <h4>@post.Author</h4>
+    </div>
+    <div class="col-md-4">
+        <h4>@post.CreateDate</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <p>@post.Body</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group">
+            <input type="button" class="btn btn-primary" @onclick="@Back" value="Back" />
+        </div>
+    </div>
+</div>
+    
+<AddCommentComponent ParentPost="post" OnSubmitted="@RefreshComments" />
+<ViewCommentsComponent ParentPost="post" />
+
+}
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    Post post = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (int.TryParse(Id, out var id))
+        {
+            post = await postService.GetPostAsync(id);
+        }       
+    }
+
+    protected async Task RefreshComments()
+    {
+        await notifierService.Update(post.Id);
+    }
+
+    void Back()
+    {
+        navigationManager.NavigateTo("Posts");
+    }
+}

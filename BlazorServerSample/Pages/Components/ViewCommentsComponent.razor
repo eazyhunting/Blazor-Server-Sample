@@ -1,0 +1,63 @@
+﻿@using BlazorServerSample.Data
+@using BlazorServerSample.Services.Interfaces
+
+@inject ICommentService commentService;
+@inject INotifierService notifierService;
+
+<h3>Comments</h3>
+
+@if (CommentCollection is null)
+{
+    <p>0 Comments...</p>
+}
+else
+{
+    @foreach (Comment comment in CommentCollection)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <h4>@comment.Author</h4>
+            </div>
+            <div class="col-md-4">
+                <h4>@comment.Created</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <p>@comment.Message</p>
+            </div>
+        </div>
+        <div>
+            <div class="row spacer-row">
+                <div class="col-md-8">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+@code {
+
+    [Parameter]
+    public Post ParentPost { get; set; }
+
+    List<Comment> CommentCollection = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        notifierService.Notify += OnNotify;
+
+        CommentCollection = await commentService.GetCommentsAsync(ParentPost.Id);
+    }
+
+    public async Task OnNotify(int postId)
+    {
+        await InvokeAsync(async () =>
+        {
+            CommentCollection = await commentService.GetCommentsAsync(postId);
+        });
+    }
+
+}
