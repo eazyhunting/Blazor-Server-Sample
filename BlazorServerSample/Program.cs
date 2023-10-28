@@ -16,11 +16,10 @@ namespace BlazorServerSample
 
             builder.Services.RegisterServices();
 
-            var connection = Environment.GetEnvironmentVariable("KeyVaultSecret");
-            System.Diagnostics.Debug.WriteLine(connection);
-
+            var connectionString = Environment.GetEnvironmentVariable("LocalConnectionString");
+            
             builder.Services.AddDbContext<AppDbContext>(
-                item => item.UseSqlServer(Environment.GetEnvironmentVariable("AzureSqlConnection")));
+                item => item.UseSqlServer(connectionString));
 
             var app = builder.Build();
 
