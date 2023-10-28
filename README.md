@@ -2,6 +2,12 @@
 
 This is an example solution of how you might build a N-Tier application with a Blazor UI.
 
-Project: BlazorServerSample
+This is a work in progress.
 
-This is 
+Project: BlazorServerSample
+Project: BlazorServerSample.Data
+Project: BlazorServerSample.Exentions
+Project: BlazorServerSample.Services
+Project: BlazorServerSample.Shared
+
+
