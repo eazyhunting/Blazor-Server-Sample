@@ -21,6 +21,16 @@ Some things I might change and/or add later
 
 Project: BlazorServerSample.Data
 
+The .Data project defines the entities for Post & Comment along with the AppDbContext which uses EntityFrameworkCore, inherits from the DbContext and defines the DbSet<T>'s that I'll be working with.
+
+The Repsoitories folder contains a folder for the interfaces IPostRepository & ICommentRepository. Directly in the Repositories folder I implemented the concrete repositories respectively. 
+
+One of the design decisions I made that I will note is that I impelmented a specific SaveChangesAsync() seperately from the Insert/Update/Delete. I did this because I might want to add a UnitOfWork pattern later that would use the same repositories. In that case the UnitOfWork would call SaveChangesAsync rather than the repostories.
+
+Somethings I might change and/or add later
+- UnitOfWork - Implement the unit of work design pattern
+- Generics - Create a Generic Repository (e.g., IRepository<T>)
+
 Project: BlazorServerSample.Exentions
 
 Project: BlazorServerSample.Services
