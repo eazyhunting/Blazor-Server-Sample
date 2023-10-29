@@ -1,5 +1,7 @@
 using BlazorServerSample.Data;
+using BlazorServerSample.Services;
 using BlazorServerSample.Services.Extensions;
+using BlazorServerSample.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorServerSample
@@ -13,6 +15,8 @@ namespace BlazorServerSample
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+
+            builder.Services.AddScoped<INotifierService, NotifierService>();
 
             builder.Services.RegisterServices();
 
