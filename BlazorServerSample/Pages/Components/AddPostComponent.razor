@@ -1,7 +1,7 @@
 ﻿@page "/AddPost"
 
-@using BlazorServerSample.Data;
 @using BlazorServerSample.Services.Interfaces
+@using BlazorServerSample.Shared.Models
 
 @inject NavigationManager navigationManager;
 @inject IPostService postService;
@@ -32,7 +32,7 @@
 </form>
 
 @code {
-    Post post = new Post();
+    PostModel post = new PostModel();
 
     protected async void CreatePost()
     {

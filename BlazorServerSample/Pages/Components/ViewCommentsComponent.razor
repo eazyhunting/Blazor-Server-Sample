@@ -1,8 +1,10 @@
-﻿@using BlazorServerSample.Data
-@using BlazorServerSample.Services.Interfaces
+﻿@using BlazorServerSample.Services.Interfaces;
+@using BlazorServerSample.Shared.Models;
 
 @inject ICommentService commentService;
 @inject INotifierService notifierService;
+
+@implements IDisposable;
 
 <h3>Comments</h3>
 
@@ -12,7 +14,7 @@
 }
 else
 {
-    @foreach (Comment comment in CommentCollection)
+    @foreach (CommentModel comment in CommentCollection)
     {
         <div class="row">
             <div class="col-md-4">
@@ -41,9 +43,9 @@ else
 @code {
 
     [Parameter]
-    public Post ParentPost { get; set; }
+    public PostModel ParentPost { get; set; }
 
-    List<Comment> CommentCollection = null;
+    List<CommentModel> CommentCollection = null;
 
     protected override async Task OnInitializedAsync()
     {
@@ -60,4 +62,8 @@ else
         });
     }
 
+    public void Dispose()
+    {
+        notifierService.Notify -= OnNotify;
+    }
 }

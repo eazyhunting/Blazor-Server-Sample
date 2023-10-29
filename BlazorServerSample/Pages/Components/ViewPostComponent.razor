@@ -1,7 +1,7 @@
 ﻿@page "/ViewPost/{id}"
 
-@using BlazorServerSample.Data;
 @using BlazorServerSample.Services.Interfaces;
+@using BlazorServerSample.Shared.Models
 
 @inject IPostService postService;
 @inject ICommentService commentService;
@@ -47,7 +47,7 @@
     [Parameter]
     public string Id { get; set; }
 
-    Post post = null;
+    PostModel post = null;
 
     protected override async Task OnInitializedAsync()
     {

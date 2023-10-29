@@ -1,7 +1,7 @@
 ﻿@page "/Posts"
 
-@using BlazorServerSample.Data;
 @using BlazorServerSample.Services.Interfaces
+@using BlazorServerSample.Shared.Models
 
 @inject IPostService postService;
 
@@ -53,7 +53,7 @@ else
 }
 
 @code {
-    public List<Post> PostCollection = null;
+    public List<PostModel> PostCollection = null;
 
     protected override async Task OnInitializedAsync()
     {

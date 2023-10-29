@@ -16,7 +16,8 @@ namespace BlazorServerSample.Services
             var comments = await _commentRepository.GetCommentsAsync(postId);
             return comments.Select(c => c.ToModel()).ToList();
         }
-        public async Task<bool> InsertCommentAsync(CommentModel comment)
+
+        public async Task<bool> InsertCommentAsync(CommentCreationModel comment)
         {
             await _commentRepository.InsertCommentAsync(comment.ToEntity());
             return await _commentRepository.SaveChangesAsync();
@@ -27,8 +28,7 @@ namespace BlazorServerSample.Services
             var comment = await _commentRepository.GetCommentAsync(id);
             if (comment != null) return comment.ToModel();
             return null;
-        }
-            
+        }            
 
         public async Task<bool> UpdateCommentAsync(CommentModel comment)
         {

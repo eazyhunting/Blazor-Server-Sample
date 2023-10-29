@@ -30,5 +30,16 @@ namespace BlazorServerSample.Services.Services.Extensions
                 Post = comment.Post.ToEntity(),
             };
         }
+
+        public static Comment ToEntity(this CommentCreationModel comment)
+        {
+            return new Comment()
+            {
+                Message = comment.Message,
+                Author = comment.Author,
+                Created = comment.Created,
+                PostId = comment.PostId
+            };
+        }
     }
 }

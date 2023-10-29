@@ -1,7 +1,7 @@
 ﻿@page "/AddComment"
 
-@using BlazorServerSample.Data;
 @using BlazorServerSample.Services.Interfaces;
+@using BlazorServerSample.Shared.Models
 
 @inject ICommentService commentService;
 
@@ -32,16 +32,16 @@
 @code {
 
     [Parameter]
-    public Post ParentPost { get; set; }
+    public PostModel ParentPost { get; set; }
 
     [Parameter]
     public EventCallback OnSubmitted { get; set; }
 
-    Comment comment = new Comment();
+    CommentCreationModel comment = new CommentCreationModel();
 
     protected async void CreateComment()
     {
-        comment.Post = ParentPost;
+        comment.PostId = ParentPost.Id;
         await commentService.InsertCommentAsync(comment);
 
         ResetForm();
@@ -51,9 +51,9 @@
 
     private void ResetForm()
     {
-        comment = new Comment()
+        comment = new CommentCreationModel()
             {
-                Post = ParentPost
+                PostId = ParentPost.Id
             };
 
         StateHasChanged();

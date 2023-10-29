@@ -25,4 +25,9 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorServerSample.Data\BlazorServerSample.Data.csproj" />
+    <ProjectReference Include="..\BlazorServerSample.Services\BlazorServerSample.Services.csproj" />
+  </ItemGroup>
+
 </Project>

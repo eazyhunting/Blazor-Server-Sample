@@ -7,7 +7,7 @@ namespace BlazorServerSample.Services.Interfaces
         Task<bool> DeleteCommentAsync(CommentModel comment);
         Task<CommentModel> GetCommentAsync(int id);
         Task<List<CommentModel>> GetCommentsAsync(int postId);
-        Task<bool> InsertCommentAsync(CommentModel comment);
+        Task<bool> InsertCommentAsync(CommentCreationModel comment);
         Task<bool> UpdateCommentAsync(CommentModel comment);
     }
 }

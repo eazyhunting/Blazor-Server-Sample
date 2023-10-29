@@ -14,7 +14,7 @@ namespace BlazorServerSample.Extensions
                 Author = post.Author,
                 Body = post.Body,
                 CreateDate = post.CreateDate,
-                Comments = post.Comments.Select(c => c.ToModel()).ToList()
+                // Comments = post.Comments.Select(c => c.ToModel()).ToList()
             };
         }
 
