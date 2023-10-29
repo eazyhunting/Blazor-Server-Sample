@@ -4,7 +4,7 @@ This is an example solution of how you might build a N-Tier application with a B
 
 This is a work in progress.
 
-Project: BlazorServerSample
+## Project: BlazorServerSample
 
 This is a simple component based approach to building a UI. On the Posts page it lists messages that a user might post on something like a social network. If you view the post you will see the full post with comments. You will also be allowed to comment. The components implemented are:
 
@@ -19,7 +19,7 @@ Some things I might change and/or add later
 - Implement the Blazor EditForm component - At the moment I use use standard HTML for my forms. I will probably want to experiement with Blazor specific controls
 - Add Authentication - Might be out of scope for this sample app
 
-Project: BlazorServerSample.Data
+## Project: BlazorServerSample.Data
 
 The .Data project defines the entities for Post & Comment along with the AppDbContext which uses EntityFrameworkCore, inherits from the DbContext and defines the DbSet<T>'s that I'll be working with.
 
@@ -31,10 +31,10 @@ Somethings I might change and/or add later
 - UnitOfWork - Implement the unit of work design pattern
 - Generics - Create a Generic Repository (e.g., IRepository<T>)
 
-Project: BlazorServerSample.Exentions
+## Project: BlazorServerSample.Exentions
 
-Project: BlazorServerSample.Services
+## Project: BlazorServerSample.Services
 
-Project: BlazorServerSample.Shared
+## Project: BlazorServerSample.Shared
 
 
