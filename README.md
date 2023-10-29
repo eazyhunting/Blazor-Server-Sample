@@ -14,6 +14,8 @@ This is a simple component based approach to building a UI. On the Posts page it
 -   ViewCommentsComponent - View the comments for a post
 -   AddCommentComponent - Add a comment to a post.
 
+I created a Services/Interfaces folder with the INotifierService and implemented the concrete NotifierService directly in the Services folder. This service is responsible for managing the state between components on the page. For example when you're viewing a full post and you add a comment you would expect that comment to show up instantly. 
+
 Some things I might change and/or add later
 - Create services for each component - This might be overkill for a blazor application but I was found of this pattern in my Angular days.
 - Implement the Blazor EditForm component - At the moment I use use standard HTML for my forms. I will probably want to experiement with Blazor specific controls
