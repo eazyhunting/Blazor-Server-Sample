@@ -58,6 +58,5 @@ else
     protected override async Task OnInitializedAsync()
     {
         PostCollection = await postService.GetPostsAsync();
-        System.Diagnostics.Debug.WriteLine(PostCollection.Count);
     }
 }

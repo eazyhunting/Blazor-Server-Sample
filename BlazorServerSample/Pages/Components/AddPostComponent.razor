@@ -8,35 +8,26 @@
 
 <h3>Add Post</h3>
 
-<form>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <label for="Author" class="control-label">Author</label>
-                <input form="Author" class="form-control" @bind="@post.Author" />
-            </div>
-            <div class="form-group">
-                <label for="Body" class="control-label">Body</label>
-                <textarea form="Body" class="form-control" @bind="@post.Body" />
-            </div>
-        </div>
+<EditForm Model="@Post" OnValidSubmit="@CreatePost">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <label>Author: </label>
+    <div class="col-md-8">
+        <InputText @bind-Value="@Post.Author" class="form-control" />
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@CreatePost" value="Save" />
-                <input type="button" class="btn btn-primary" @onclick="@CancelPost" value="Cancel" />
-            </div>
-        </div>
+    <label>Message: </label>
+    <div class="col-md-8">
+        <InputTextArea @bind-Value="@Post.Body" class="form-control" />
     </div>
-</form>
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
 
 @code {
-    PostModel post = new PostModel();
+    PostModel Post = new PostModel();
 
     protected async void CreatePost()
     {
-        await postService.InsertPostAsync(post);
+        await postService.InsertPostAsync(Post);
         navigationManager.NavigateTo("Posts");
     }
 

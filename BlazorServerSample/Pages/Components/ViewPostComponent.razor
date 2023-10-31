@@ -11,34 +11,36 @@
 
 <h3>Post View</h3>
 
-@if (post is null)
+@if (Post is null)
 {
     <p><em>Loading ....  !</em></p>
-} else {
-<div class="row">
-    <div class="col-md-4">
-        <h4>@post.Author</h4>
-    </div>
-    <div class="col-md-4">
-        <h4>@post.CreateDate</h4>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-8">
-        <p>@post.Body</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            <input type="button" class="btn btn-primary" @onclick="@Back" value="Back" />
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <h4>@Post.Author</h4>
+        </div>
+        <div class="col-md-4">
+            <h4>@Post.CreateDate</h4>
         </div>
     </div>
-</div>
-    
-<AddCommentComponent ParentPost="post" OnSubmitted="@RefreshComments" />
-<ViewCommentsComponent ParentPost="post" />
+    <div class="row">
+        <div class="col-md-8">
+            <p>@Post.Body</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" class="btn btn-primary" @onclick="@Back" value="Back" />
+            </div>
+        </div>
+    </div>
+
+    <AddCommentComponent ParentPost="Post" OnSubmitted="@RefreshComments" />
+    <ViewCommentsComponent ParentPost="Post" />
 
 }
 
@@ -47,19 +49,19 @@
     [Parameter]
     public string Id { get; set; }
 
-    PostModel post = null;
+    PostModel Post = null;
 
     protected override async Task OnInitializedAsync()
     {
         if (int.TryParse(Id, out var id))
         {
-            post = await postService.GetPostAsync(id);
-        }       
+            Post = await postService.GetPostAsync(id);
+        }
     }
 
     protected async Task RefreshComments()
     {
-        await notifierService.Update(post.Id);
+        await notifierService.Update(Post.Id);
     }
 
     void Back()

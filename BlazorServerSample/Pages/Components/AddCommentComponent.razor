@@ -7,29 +7,20 @@
 
 <h3>Add Comment</h3>
 
-<form>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="form-group">
-                <label for="Author" class="control-label">Author</label>
-                <input form="Author" class="form-control" @bind="@comment.Author" />
-            </div>
-            <div class="form-group">
-                <label for="Message" class="control-label">Message</label>
-                <textarea form="Message" class="form-control" @bind="@comment.Message" />
-            </div>
-        </div>
+<EditForm Model="@Comment" OnValidSubmit="@CreateComment">
+    <label>Author:</label>
+    <div class="col-md-8">
+        <InputText @bind-Value="@Comment.Author" class="form-control" />
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <input type="button" class="btn btn-primary" @onclick="@CreateComment" value="Comment" />
-            </div>
-        </div>
-    </div>
-</form>
+    <label>Message:</label>
+    <div class="col-md-8">
+        <InputTextArea @bind-Value="@Comment.Message" class="form-control" />
 
-@code {
+    </div>
+    <button type="submit" class="btn btn-success">Comment</button>
+</EditForm>
+
+ @code {
 
     [Parameter]
     public PostModel ParentPost { get; set; }
@@ -37,12 +28,12 @@
     [Parameter]
     public EventCallback OnSubmitted { get; set; }
 
-    CommentCreationModel comment = new CommentCreationModel();
+    CommentCreationModel Comment = new CommentCreationModel();
 
     protected async void CreateComment()
     {
-        comment.PostId = ParentPost.Id;
-        await commentService.InsertCommentAsync(comment);
+        Comment.PostId = ParentPost.Id;
+        await commentService.InsertCommentAsync(Comment);
 
         ResetForm();
         
@@ -51,7 +42,7 @@
 
     private void ResetForm()
     {
-        comment = new CommentCreationModel()
+        Comment = new CommentCreationModel()
             {
                 PostId = ParentPost.Id
             };
