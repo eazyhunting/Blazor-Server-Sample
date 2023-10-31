@@ -18,7 +18,6 @@ I created a Services/Interfaces folder with the INotifierService and implemented
 
 Some things I might change and/or add later
 - Create services for each component - This might be overkill for a blazor application but I was found of this pattern in my Angular days.
-- Implement the Blazor EditForm component - At the moment I use use standard HTML for my forms. I will probably want to experiement with Blazor specific controls
 - Add Authentication - Might be out of scope for this sample app
 
 ## Project: BlazorServerSample.Data
